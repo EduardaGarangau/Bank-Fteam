@@ -2,11 +2,6 @@ import 'dart:math';
 import '../cards/card_model.dart';
 import '../user_model.dart';
 
-enum AccountType {
-  currentAccount,
-  savingsAccount,
-}
-
 abstract class Account {
   final User user;
   final String bank;
@@ -46,10 +41,10 @@ abstract class Account {
     }
   }
 
-  void _printMessage(String operation) {
-    print(
-        'Efetuando $operation...\nSeu saldo é: ${balance.toStringAsFixed(2)}');
-  }
+  // void _printMessage(String operation) {
+  //   print(
+  //       'Efetuando $operation...\nSeu saldo é: ${balance.toStringAsFixed(2)}');
+  // }
 
   String _generateNumber(int numberLength) {
     String randomNumber = '';

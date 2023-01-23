@@ -4,39 +4,61 @@ import 'package:test/test.dart';
 void main() {
   late DebitAndCreditCard card;
 
-  group('DebitAndCreditCard Model ', () {
+  group('DebitAndCreditCardModel:', () {
     setUp(() {
-      card = DebitAndCreditCard(userName: 'Eduarda', creditLimit: 400);
+      card = DebitAndCreditCard(
+        userName: 'Eduarda',
+        creditLimit: 400,
+      );
     });
 
-    test('should number not be empty when create an DebitAndCreditCard', () {
+    test('the name of the card should be the same name of the User', () {
+      expect(card.userName, equals('Eduarda'));
+    });
+
+    test('card flag should not be null when create an DebitCard', () {
+      expect(card.flag, isNotNull);
+    });
+
+    test('should auto generate card flag with the value Visa', () {
+      expect(card.flag, equals('Visa'));
+    });
+
+    test('should card number not be empty when create an DebitAndCreditCard',
+        () {
       expect(card.number.isNotEmpty, true);
     });
 
-    test('should generate number with 16 numbers', () {
-      expect(card.number.length, equals(16));
-    });
-
-    test('should generate number without letters', () {
+    test('should generate card number without letters', () {
       bool containsLetters = !card.number.contains(RegExp(r'[A-Za-z]'));
       expect(containsLetters, true);
     });
 
-    test('should generate Visa flag', () {
-      expect(card.flag, equals('Visa'));
+    test('should generate card number with just numbers', () {
+      bool containsJustNumbers = card.number.contains(RegExp(r'[0-9]'));
+      expect(containsJustNumbers, true);
     });
 
-    test('should cvv not be empty when create an DebitAndCreditCard', () {
+    test('should generate card number with 16 numbers', () {
+      expect(card.number.length, equals(16));
+    });
+
+    test('should card cvv not be empty when create an DebitAndCreditCard', () {
       expect(card.cvv.isNotEmpty, true);
     });
 
-    test('should generate cvv with 3 numbers', () {
-      expect(card.cvv.length, equals(3));
-    });
-
-    test('should generate cvv without letters', () {
+    test('should generate card cvv without letters', () {
       bool containsLetters = !card.cvv.contains(RegExp(r'[A-Za-z]'));
       expect(containsLetters, true);
+    });
+
+    test('should generate card cvv with just numbers', () {
+      bool containsJustNumbers = card.cvv.contains(RegExp(r'[0-9]'));
+      expect(containsJustNumbers, true);
+    });
+
+    test('should generate card cvv with 3 numbers', () {
+      expect(card.cvv.length, equals(3));
     });
 
     test('should expirationDate not be null when create an DebitAndCreditCard',
@@ -58,29 +80,33 @@ void main() {
       expect(card.expirationDate.day, equals(28));
     });
 
-    test('should return limit when DebitAndCreditCard was created', () {
+    test('should return the limit when create an DebitAndCreditCard', () {
       expect(card.limit, equals(400));
     });
 
-    test('should return default amoutSpent when DebitAndCreditCard was created',
+    test('should return default amoutSpent when create an DebitAndCreditCard',
         () {
       expect(card.amoutSpent, equals(0.0));
     });
 
-    test('should limit equals 300 when use method buyWithCreditCard', () {
+    test('should limit decrease when User buy with DebitAndCreditCard', () {
       card.buyWithCreditCard(50);
       card.buyWithCreditCard(50);
       expect(card.limit, equals(300));
     });
 
-    test('should amoutSpent equals 200 when use method buyWithCreditCard', () {
+    test('should amoutSpent increase when User buy with DebitAndCreditCard',
+        () {
       card.buyWithCreditCard(100);
       card.buyWithCreditCard(100);
       expect(card.amoutSpent, equals(200));
     });
 
-    test('should throw Exception when exceed the limit', () {
-      expect(() => card.buyWithCreditCard(401), throwsA(isA<Exception>()));
+    test(
+        'should throw an Exception when User exceeds the limit of DebitAndCreditCard',
+        () {
+      card.buyWithCreditCard(300);
+      expect(() => card.buyWithCreditCard(150), throwsA(isA<Exception>()));
     });
   });
 }

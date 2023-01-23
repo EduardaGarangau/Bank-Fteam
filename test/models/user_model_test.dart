@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 void main() {
   late User user;
 
-  group('User Model with Valid Password', () {
+  group('UserModel with Valid Password:', () {
     setUp(() {
       user = User(
         name: 'Eduarda',
@@ -18,25 +18,53 @@ void main() {
           cep: '82520550',
           city: 'Curitiba',
           district: 'Bacacheri',
-          number: '216',
+          number: '1007',
           state: 'Paraná',
           complement: 'Sobrado 3',
         ),
       );
     });
 
-    test('should return null if not provide monthlyIncome', () {
+    test('should return the name that User provided', () {
+      expect(user.name, equals('Eduarda'));
+    });
+
+    test('should return the email that User provided', () {
+      expect(user.email, equals('eduardagarangau98@gmail.com'));
+    });
+
+    test('should return the phone that User provided', () {
+      expect(user.phone, equals('41996717016'));
+    });
+
+    test('should return the CPF that User provided', () {
+      expect(user.cpf, equals('08591413903'));
+    });
+
+    test('address should not be null', () {
+      expect(user.address, isNotNull);
+    });
+
+    test('should return null if User not provide monthlyIncome', () {
       expect(user.monthlyIncome, equals(null));
     });
 
-    test('should return montlyIncome if provided', () {
+    test('should return montlyIncome if User provided', () {
       user.monthlyIncome = 3000.0;
       expect(user.monthlyIncome, equals(3000.0));
     });
+
+    test(
+        'should not throw an Exception if User provided password with 8 numbers',
+        () {
+      expect(user, isNot(throwsA(isA<Exception>())));
+    });
   });
 
-  group('User Model with Invalid Password', () {
-    test('should throw Exception if provided password with small letters', () {
+  group('UserModel with Invalid Password:', () {
+    test(
+        'should throw an Exception if User provided password with just small letters',
+        () {
       expect(() {
         User(
           name: 'Eduarda',
@@ -49,7 +77,7 @@ void main() {
             cep: '82520550',
             city: 'Curitiba',
             district: 'Bacacheri',
-            number: '216',
+            number: '1007',
             state: 'Paraná',
             complement: 'Sobrado 3',
           ),
@@ -57,7 +85,8 @@ void main() {
       }, throwsA(isA<Exception>()));
     });
 
-    test('should throw Exception if provided password with capital letters',
+    test(
+        'should throw an Exception if User provided password with just capital letters',
         () {
       expect(() {
         User(
@@ -71,7 +100,7 @@ void main() {
             cep: '82520550',
             city: 'Curitiba',
             district: 'Bacacheri',
-            number: '216',
+            number: '1007',
             state: 'Paraná',
             complement: 'Sobrado 3',
           ),
@@ -79,7 +108,8 @@ void main() {
       }, throwsA(isA<Exception>()));
     });
 
-    test('should throw Exception if provided password with numbers and letters',
+    test(
+        'should throw an Exception if User provided password with numbers and letters',
         () {
       expect(() {
         User(
@@ -93,7 +123,7 @@ void main() {
             cep: '82520550',
             city: 'Curitiba',
             district: 'Bacacheri',
-            number: '216',
+            number: '1007',
             state: 'Paraná',
             complement: 'Sobrado 3',
           ),
@@ -101,7 +131,8 @@ void main() {
       }, throwsA(isA<Exception>()));
     });
 
-    test('should throw Exception if provided password with less than 8 digits',
+    test(
+        'should throw an Exception if User provided password with less than 8 numbers',
         () {
       expect(() {
         User(
@@ -115,7 +146,30 @@ void main() {
             cep: '82520550',
             city: 'Curitiba',
             district: 'Bacacheri',
-            number: '216',
+            number: '1007',
+            state: 'Paraná',
+            complement: 'Sobrado 3',
+          ),
+        );
+      }, throwsA(isA<Exception>()));
+    });
+
+    test(
+        'should throw an Exception if User provided password with more than 8 numbers',
+        () {
+      expect(() {
+        User(
+          name: 'Eduarda',
+          email: 'eduardagarangau98@gmail.com',
+          phone: '41996717016',
+          password: '123456789',
+          cpf: '08591413903',
+          address: Address(
+            street: 'Rua José Mario de Oliveira',
+            cep: '82520550',
+            city: 'Curitiba',
+            district: 'Bacacheri',
+            number: '1007',
             state: 'Paraná',
             complement: 'Sobrado 3',
           ),

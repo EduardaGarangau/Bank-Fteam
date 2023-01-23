@@ -27,14 +27,17 @@ abstract class Card {
 
   String _generateNumber(int numberLength) {
     String randomNumber = '';
-    var random = Random();
-    var randomNumbers =
-        List<int>.generate(numberLength, (index) => random.nextInt(9));
+    var randomNumbers = _generateRandomNumbers(numberLength);
 
     for (var number in randomNumbers) {
       randomNumber = randomNumber + number.toString();
     }
     return randomNumber;
+  }
+
+  List<int> _generateRandomNumbers(int numberLength) {
+    var randomNumber = Random();
+    return List<int>.generate(numberLength, (index) => randomNumber.nextInt(9));
   }
 
   DateTime _generateExpirationDate() {

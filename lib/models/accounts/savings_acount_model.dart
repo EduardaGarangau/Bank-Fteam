@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bank_challenge/models/accounts/account_model.dart';
 import 'package:bank_challenge/models/cards/debit_card_model.dart';
+import 'package:meta/meta.dart';
 
 class SavingsAccount extends Account {
   SavingsAccount({
@@ -9,12 +10,13 @@ class SavingsAccount extends Account {
     required super.balance,
   }) {
     card = DebitCard(userName: user.name);
-    _renderSavings();
+    renderSavings();
   }
 
-  void _renderSavings() {
-    Timer.periodic(Duration(hours: 24), (timer) {
-      balance += balance * 0.0001;
+  @visibleForTesting
+  void renderSavings() {
+    Timer.periodic(Duration(days: 1), (timer) {
+      balance += balance * 0.001;
     });
   }
 }
