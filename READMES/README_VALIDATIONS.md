@@ -84,7 +84,7 @@ Dígitos validadores = 94
     - Passo 1:  
       Somar o resultado da multiplicação dos números comuns pela ordem decrescente de 10 a 2;
 
-      Ex: `1*10 + 2*9 + 3*8 + 4*7 + ...9\*2`
+      Ex: `1*10 + 2*9 + 3*8 + 4*7 + ...9*2`
 
     - Passo 2:  
       Multiplicar o resultado do passo 1, multiplicar por 10 e posteriormente dividir por 11.  
