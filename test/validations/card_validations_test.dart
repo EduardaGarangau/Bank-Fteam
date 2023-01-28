@@ -104,5 +104,31 @@ void main() {
       final isValid = cardValidations.validateExpirationDate('01/01/22');
       expect(isValid, equals(false));
     });
+
+    test('should return true if year is more than 10 years', () {
+      final isValid = cardValidations.validateExpirationDate('01/01/2033');
+      expect(isValid, equals(true));
+    });
+  });
+
+  group('Validate Card flag:', () {
+    setUp(() {
+      cardValidations = CardValidations();
+    });
+
+    test('should return true if flag has just letters', () {
+      final isValid = cardValidations.validateFlag('Visa');
+      expect(isValid, equals(true));
+    });
+
+    test('should return false if flag has less than 3 letters', () {
+      final isValid = cardValidations.validateFlag('El');
+      expect(isValid, equals(false));
+    });
+
+    test('should return false if flag contains digits', () {
+      final isValid = cardValidations.validateFlag('1234');
+      expect(isValid, equals(false));
+    });
   });
 }

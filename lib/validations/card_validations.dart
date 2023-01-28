@@ -3,7 +3,29 @@ class CardValidations {
     final regexDate = RegExp(r'^([\d]{2}\/[\d]{2}\/[\d]{4})$');
 
     if (regexDate.hasMatch(date!)) {
-      return _dateIsValid(date);
+      return _dateIsValid(date) && _tenYearsVality(date);
+    } else {
+      return false;
+    }
+  }
+
+  bool validateFlag(String? flag) {
+    final regexFlag = RegExp(r'\b[A-Za-z]{3,24}\b');
+
+    if (regexFlag.hasMatch(flag!)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool _tenYearsVality(String date) {
+    final dateSplitted = _dateSplitted(date);
+    final tenYearThanActualYear = DateTime.now().year + 10;
+    final yearProvided = dateSplitted[2];
+
+    if (yearProvided == tenYearThanActualYear) {
+      return true;
     } else {
       return false;
     }

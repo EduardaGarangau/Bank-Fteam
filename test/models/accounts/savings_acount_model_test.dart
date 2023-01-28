@@ -33,8 +33,12 @@ void main() {
 
       account = SavingsAccount(
         user: user,
-        bank: 'Banco do Brasil',
-        balance: 4000,
+        bank: '1234',
+        card: DebitCard(
+          userName: user.name,
+          flag: 'Visa',
+          expirationDate: '01/01/2033',
+        ),
       );
     });
 

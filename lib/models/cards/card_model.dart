@@ -1,26 +1,22 @@
 import 'dart:math';
 
-enum CardType {
-  debit,
-  debitAndCredit,
-}
-
 abstract class Card {
   final String userName;
-  late String flag;
+  final String flag;
+  final String expirationDate;
   late String number;
   late String cvv;
-  late DateTime expirationDate;
-  dynamic limit;
-  dynamic amoutSpent;
+  late double limit;
+  double amoutSpent;
 
   Card({
+    required this.flag,
     required this.userName,
+    required this.expirationDate,
+    this.amoutSpent = 0.0,
   }) {
-    flag = 'Visa';
     number = _generateNumber(16);
     cvv = _generateNumber(3);
-    expirationDate = _generateExpirationDate();
   }
 
   void buyWithCreditCard(double value);
@@ -38,11 +34,5 @@ abstract class Card {
   List<int> _generateRandomNumbers(int numberLength) {
     var randomNumber = Random();
     return List<int>.generate(numberLength, (index) => randomNumber.nextInt(9));
-  }
-
-  DateTime _generateExpirationDate() {
-    final actualMonth = DateTime.now().month;
-    final actualYear = DateTime.now().year;
-    return DateTime(actualYear + 2, actualMonth, 28);
   }
 }

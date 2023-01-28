@@ -5,17 +5,16 @@ import '../user_model.dart';
 abstract class Account {
   final User user;
   final String bank;
+  final Card card;
   late String agency;
   late String number;
-  late Card card;
   double balance;
-  CardType? cardType;
 
   Account({
     required this.user,
     required this.bank,
-    required this.balance,
-    this.cardType,
+    required this.card,
+    this.balance = 0.0,
   }) {
     agency = _generateNumber(5);
     number = _generateNumber(5);
@@ -40,11 +39,6 @@ abstract class Account {
       throw Exception('Saldo indisponível para realizar essa operação');
     }
   }
-
-  // void _printMessage(String operation) {
-  //   print(
-  //       'Efetuando $operation...\nSeu saldo é: ${balance.toStringAsFixed(2)}');
-  // }
 
   String _generateNumber(int numberLength) {
     String randomNumber = '';

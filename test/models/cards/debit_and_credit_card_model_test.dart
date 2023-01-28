@@ -7,8 +7,10 @@ void main() {
   group('DebitAndCreditCardModel:', () {
     setUp(() {
       card = DebitAndCreditCard(
-        userName: 'Eduarda',
-        creditLimit: 400,
+        userName: 'Eduarda Garangau',
+        flag: 'Visa',
+        expirationDate: '01/01/2033',
+        userMontlyIncome: 5000,
       );
     });
 
@@ -64,20 +66,6 @@ void main() {
     test('should expirationDate not be null when create an DebitAndCreditCard',
         () {
       expect(card.expirationDate, isNotNull);
-    });
-
-    test('should generate expirationDate with two years more', () {
-      int expectExpirationYear = DateTime.now().year + 2;
-      expect(card.expirationDate.year, equals(expectExpirationYear));
-    });
-
-    test('should generate expirationDate with same month it was created', () {
-      int actualMonth = DateTime.now().month;
-      expect(card.expirationDate.month, equals(actualMonth));
-    });
-
-    test('should generate expirationDate with day 28', () {
-      expect(card.expirationDate.day, equals(28));
     });
 
     test('should return the limit when create an DebitAndCreditCard', () {

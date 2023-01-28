@@ -6,7 +6,11 @@ void main() {
 
   group('DebitCardModel:', () {
     setUp(() {
-      card = DebitCard(userName: 'Eduarda');
+      card = DebitCard(
+        userName: 'Eduarda Garangau',
+        flag: 'VIsa',
+        expirationDate: '01/01/2033',
+      );
     });
 
     test('the name of the card should be the same name of the User', () {
@@ -59,21 +63,6 @@ void main() {
 
     test('should card expirationDate not be null when create an DebitCard', () {
       expect(card.expirationDate, isNotNull);
-    });
-
-    test('should generate card expirationDate with two years more', () {
-      int expectExpirationYear = DateTime.now().year + 2;
-      expect(card.expirationDate.year, equals(expectExpirationYear));
-    });
-
-    test('should generate card expirationDate with same month it was created',
-        () {
-      int actualMonth = DateTime.now().month;
-      expect(card.expirationDate.month, equals(actualMonth));
-    });
-
-    test('should generate card expirationDate with day 28', () {
-      expect(card.expirationDate.day, equals(28));
     });
 
     test('should return an Exception when try to access card limit', () {

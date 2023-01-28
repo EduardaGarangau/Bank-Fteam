@@ -1,10 +1,9 @@
-// ignore_for_file: unused_field
 import 'package:bank_challenge/models/address_model.dart';
 
 class User {
   final String name;
   final String email;
-  late String _password;
+  late String password;
   final String phone;
   final String cpf;
   final Address address;
@@ -16,19 +15,12 @@ class User {
     required this.phone,
     required this.cpf,
     required this.address,
-    required String password,
+    required this.password,
     this.monthlyIncome,
-  }) {
-    _validatePassword(password)
-        ? _password = password
-        : throw Exception('Senha inválida');
-  }
+  });
 
-  bool _validatePassword(String password) {
-    if (password.length != 8 || password.contains(RegExp(r'[A-Za-z]'))) {
-      return false;
-    } else {
-      return true;
-    }
+  @override
+  String toString() {
+    return '| DADOS PESSOAIS |\nNome: $name\nEmail: $email\nTelefone: $phone\nCPF: $cpf\nRenda Mensal: $monthlyIncome\n| ENDEREÇO |\nRua: ${address.street}\nNumero: ${address.number}\nComplemento: ${address.complement}\nBairro: ${address.district}\nCidade: ${address.city}\nEstado: ${address.state}\nCEP: ${address.cep}';
   }
 }
