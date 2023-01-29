@@ -5,11 +5,16 @@ class CurrentAccount extends Account {
     required super.user,
     required super.bank,
     required super.card,
+    required super.cardType,
   });
 
+  @override
   void applyForLoan(double value) {
     balance += value;
   }
+
+  @override
+  void renderBalance(int days) {}
 
   @override
   String toString() {

@@ -4,7 +4,7 @@ class DebitAndCreditCard extends Card {
   final double userMontlyIncome;
 
   DebitAndCreditCard({
-    required super.userName,
+    required super.user,
     required super.flag,
     required super.expirationDate,
     required this.userMontlyIncome,
@@ -13,13 +13,15 @@ class DebitAndCreditCard extends Card {
   }
 
   @override
-  void buyWithCreditCard(double value) {
-    if (value <= limit && limit != 0.0) {
-      amoutSpent += value;
-      limit = limit - value;
-    } else {
-      throw Exception('Sem limite no cartão de crédito!');
-    }
+  void buyWithCredit(double value) {
+    amoutSpent += value;
+    limit = limit - value;
+  }
+
+  @override
+  double buyWithDebit(double value, double balance) {
+    balance -= value;
+    return balance;
   }
 
   double _setLimitByMontlyIncome(double userMontlyIncome) {
@@ -38,6 +40,6 @@ class DebitAndCreditCard extends Card {
 
   @override
   String toString() {
-    return '| CARTÃO DE DÉBITO e CRÉDITO |\nNome: $userName\nNumero: ${super.number}\nCVV: ${super.cvv}\nBandeira: $flag\nData de Valiade: $expirationDate\nLimite: $limit';
+    return '| CARTÃO DE DÉBITO e CRÉDITO |\nNome: ${user.name}}\nNumero: ${super.number}\nCVV: ${super.cvv}\nBandeira: $flag\nData de Valiade: $expirationDate\nLimite: $limit';
   }
 }

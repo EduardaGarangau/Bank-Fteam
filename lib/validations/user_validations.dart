@@ -43,7 +43,8 @@ class UserValidations {
   }
 
   bool validateMontlyIncome(String? montlyIncome) {
-    final regexMontlyIncome = RegExp(r'^([^+-.$#_a-zA-Z][\d]*\.?([\d]{2})?)$');
+    final regexMontlyIncome =
+        RegExp(r'^([^+-.$#_a-zA-Z][\d]*\.?([\d]{1,2})?)$');
 
     if (regexMontlyIncome.hasMatch(montlyIncome!)) {
       return true;

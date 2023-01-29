@@ -2,18 +2,22 @@ import 'package:bank_challenge/models/cards/card_model.dart';
 
 class DebitCard extends Card {
   DebitCard({
-    required super.userName,
+    required super.user,
     required super.flag,
     required super.expirationDate,
   });
 
   @override
-  void buyWithCreditCard(double value) {
-    throw Exception('Operação suportada apenas para Cartão de Crédito');
+  String toString() {
+    return '| CARTÃO DE DÉBITO |\nNome: ${user.name}\nNumero: ${super.number}\nCVV: ${super.cvv}\nBandeira: $flag\nData de Valiade: $expirationDate';
   }
 
   @override
-  String toString() {
-    return '| CARTÃO DE DÉBITO |\nNome: $userName\nNumero: ${super.number}\nCVV: ${super.cvv}\nBandeira: $flag\nData de Valiade: $expirationDate';
+  void buyWithCredit(double value) {}
+
+  @override
+  double buyWithDebit(double value, double balance) {
+    balance -= value;
+    return balance;
   }
 }

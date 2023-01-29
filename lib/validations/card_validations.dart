@@ -1,3 +1,5 @@
+import 'dart:core';
+
 class CardValidations {
   bool validateExpirationDate(String? date) {
     final regexDate = RegExp(r'^([\d]{2}\/[\d]{2}\/[\d]{4})$');
@@ -13,6 +15,23 @@ class CardValidations {
     final regexFlag = RegExp(r'\b[A-Za-z]{3,24}\b');
 
     if (regexFlag.hasMatch(flag!)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool validateBuyWithCard(String? value) {
+    final regexValue = RegExp(r'^([^+-.$#_a-zA-Z][\d]*\.?([\d]{1,2})?)$');
+    if (regexValue.hasMatch(value!)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool acceptBuyWithCard(double value, double limitOrBalance) {
+    if (value <= limitOrBalance && limitOrBalance != 0.0) {
       return true;
     } else {
       return false;

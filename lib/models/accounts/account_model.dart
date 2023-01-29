@@ -9,23 +9,17 @@ abstract class Account {
   late String agency;
   late String number;
   double balance;
+  CardType? cardType;
 
   Account({
     required this.user,
     required this.bank,
     required this.card,
     this.balance = 0.0,
+    this.cardType,
   }) {
     agency = _generateNumber(5);
     number = _generateNumber(5);
-  }
-
-  void transfer(double value) {
-    if (balance > 0.0 && value <= balance) {
-      balance -= value;
-    } else {
-      throw Exception('Saldo indisponível para realizar essa operação');
-    }
   }
 
   void deposit(double value) {
@@ -33,12 +27,12 @@ abstract class Account {
   }
 
   void withdraw(double value) {
-    if (balance > 0.0 && value <= balance) {
-      balance -= value;
-    } else {
-      throw Exception('Saldo indisponível para realizar essa operação');
-    }
+    balance -= value;
   }
+
+  void applyForLoan(double value);
+
+  void renderBalance(int days);
 
   String _generateNumber(int numberLength) {
     String randomNumber = '';

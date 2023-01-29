@@ -1,6 +1,7 @@
 import 'dart:io';
-import 'package:bank_challenge/inputs/cards_input.dart/debit_card_input.dart';
+import 'package:bank_challenge/inputs/cards_input/debit_card_input.dart';
 import 'package:bank_challenge/inputs/input_messages.dart';
+import 'package:bank_challenge/inputs/menus_input/savings_account_menu.dart';
 import 'package:bank_challenge/models/accounts/savings_acount_model.dart';
 import 'package:bank_challenge/validations/account_validations.dart';
 import '../../models/cards/debit_card_model.dart';
@@ -13,7 +14,7 @@ class SavingsAccountInput {
 
   SavingsAccountInput({required this.user});
 
-  SavingsAccount createSavingsAccount() {
+  void createSavingsAccount() {
     stdout.writeln('\n--CONTA POUPANÇA--');
     _bankInput();
     final account = SavingsAccount(
@@ -22,9 +23,7 @@ class SavingsAccountInput {
       card: savingsAccountData['card'],
     );
     InputMessages.savingsAccountCreatedMessage();
-    print(account.toString());
-    print(account.card.toString());
-    return account;
+    SavingsAccountMenuInput(account: account).startMenu();
   }
 
   void _bankInput() {
@@ -41,6 +40,6 @@ class SavingsAccountInput {
 
   DebitCard _createDebitCard() {
     stdout.writeln('\n**Conta Poupança só tem direito a cartão de débito**');
-    return DebitCardInput(userName: user.name).createDebitCard();
+    return DebitCardInput(user: user).createDebitCard();
   }
 }

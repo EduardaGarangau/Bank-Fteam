@@ -1,7 +1,13 @@
 import 'dart:math';
+import '../user_model.dart';
+
+enum CardType {
+  DebitCard,
+  DebitAndCreditCard,
+}
 
 abstract class Card {
-  final String userName;
+  final User user;
   final String flag;
   final String expirationDate;
   late String number;
@@ -11,7 +17,7 @@ abstract class Card {
 
   Card({
     required this.flag,
-    required this.userName,
+    required this.user,
     required this.expirationDate,
     this.amoutSpent = 0.0,
   }) {
@@ -19,7 +25,9 @@ abstract class Card {
     cvv = _generateNumber(3);
   }
 
-  void buyWithCreditCard(double value);
+  double buyWithDebit(double value, double balance);
+
+  void buyWithCredit(double value);
 
   String _generateNumber(int numberLength) {
     String randomNumber = '';

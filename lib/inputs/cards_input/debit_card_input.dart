@@ -1,23 +1,23 @@
 import 'dart:io';
-import 'package:bank_challenge/models/cards/debit_and_credit_card_model.dart';
-import 'package:bank_challenge/models/user_model.dart';
-import '../../validations/card_validations.dart';
 
-class DebitAndCreditCardInput {
-  final User user;
+import 'package:bank_challenge/models/cards/debit_card_model.dart';
+import 'package:bank_challenge/models/user_model.dart';
+import 'package:bank_challenge/validations/card_validations.dart';
+
+class DebitCardInput {
   final cardValidations = CardValidations();
+  final User user;
   Map<String, dynamic> cardData = {};
 
-  DebitAndCreditCardInput({required this.user});
+  DebitCardInput({required this.user});
 
-  DebitAndCreditCard createDebitAndCreditCard() {
-    stdout.writeln('--CARTÃO DE DÉBITO E CRÉDITO--');
+  DebitCard createDebitCard() {
+    stdout.writeln('--CARTÃO DE DÉBITO--');
     _inputFlag();
-    return DebitAndCreditCard(
-      userName: user.name,
+    return DebitCard(
+      user: user,
       flag: cardData['flag'],
       expirationDate: cardData['expirationDate'],
-      userMontlyIncome: user.monthlyIncome!,
     );
   }
 

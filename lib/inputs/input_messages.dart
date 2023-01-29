@@ -16,4 +16,16 @@ class InputMessages {
     print('| CONTA CORRENTE CRIADA COM SUCESSO! |');
     print(' ------------------------------------');
   }
+
+  static void savingsAccountMenuTitle() {
+    print(' -------------------------------');
+    print('| MENU INICIAL - CONTA POUPANÇA |');
+    print(' -------------------------------');
+  }
+
+  static void currentAccountMenuTitle() {
+    print(' -------------------------------');
+    print('| MENU INICIAL - CONTA CORRENTE |');
+    print(' -------------------------------');
+  }
 }

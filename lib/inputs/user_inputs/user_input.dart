@@ -29,7 +29,6 @@ class UserInput {
       monthlyIncome: _userData['montlyIncome'],
     );
     InputMessages.userCreatedMessage();
-    print(user.toString());
     return user;
   }
 
