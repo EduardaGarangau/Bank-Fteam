@@ -1,37 +1,40 @@
 import 'dart:io';
-import 'package:bank_challenge/inputs/menus_input/iaccount_menu.dart';
+import 'package:bank_challenge/inputs/menus_input/account_menu_input.dart';
 import 'package:bank_challenge/models/cards/card_model.dart';
 import '../input_messages.dart';
 
-class CurrentAccountMenuInput extends IAccountMenuInput {
+class CurrentAccountMenuInput extends AccountMenuInput {
   CurrentAccountMenuInput({required super.account});
 
   @override
   void startMenu() {
-    InputMessages.currentAccountCreatedMessage();
+    InputMessages.currentAccountMenuTitle();
     stdout.writeln('Escolha uma opção do menu:');
-    stdout.writeln('1 - Sacar');
-    stdout.writeln('2 - Depositar');
-    stdout.writeln('3 - Pedir Empréstimo');
-    stdout.writeln('4 - Pagar com cartão de débito');
-    stdout.writeln('5 - Pagar com cartão de crédito');
-    stdout.writeln('6 - Exibir Dados Pessoais');
-    stdout.writeln('7 - Exibir dados da Conta e Cartão');
+    stdout.writeln('1 - Verificar saldo atual');
+    stdout.writeln('2 - Sacar');
+    stdout.writeln('3 - Depositar');
+    stdout.writeln('4 - Pedir Empréstimo');
+    stdout.writeln('5 - Pagar com Cartão de Débito');
+    stdout.writeln('6 - Pagar com Cartão de Crédito');
+    stdout.writeln('7 - Exibir Dados Pessoais');
+    stdout.writeln('8 - Exibir dados da Conta e Cartão');
     final option = stdin.readLineSync();
 
     if (option == '1') {
-      super.inputWithdraw();
+      super.verifyAccountBalance();
     } else if (option == '2') {
-      super.inputDeposit();
+      super.inputWithdraw();
     } else if (option == '3') {
-      _inputApplyForLoan();
+      super.inputDeposit();
     } else if (option == '4') {
-      super.payWithDebitCard();
+      _inputApplyForLoan();
     } else if (option == '5') {
-      _payWithDebitAndCreditCard();
+      super.payWithDebitCard();
     } else if (option == '6') {
-      super.showUserDetails();
+      _inputPayWithDebitAndCreditCard();
     } else if (option == '7') {
+      super.showUserDetails();
+    } else if (option == '8') {
       super.showAccountDetails();
     } else {
       stderr.writeln('Opção inválida! Tente Novamente');
@@ -42,7 +45,7 @@ class CurrentAccountMenuInput extends IAccountMenuInput {
   void _inputApplyForLoan() {
     if (account.user.monthlyIncome == null) {
       stderr.writeln(
-          'Desculpe, renda mensal não foi fornecida. Empréstimo indisponível');
+          'Desculpe, empréstimo indisponível. Renda mensal não foi fornecida');
       startMenu();
     } else {
       _applyForLoan();
@@ -59,11 +62,17 @@ class CurrentAccountMenuInput extends IAccountMenuInput {
 
     if (accountValidations.validateApplyForLoan(
         valueString, account.user.monthlyIncome!)) {
-      account.applyForLoan(value);
-      stdout.writeln(
-          'Operação efetuada com sucesso!. Você realizou um empréstimo de R\$$value');
-      stdout.writeln('Saldo atual: R\$${account.balance}');
-      super.comeBackToMenu();
+      if (requiredPassword()) {
+        account.applyForLoan(value);
+        stdout.writeln(
+            'Operação efetuada com sucesso!. Você realizou um empréstimo de R\$$value');
+        stdout.writeln('Saldo atual: R\$${account.balance}');
+        super.comeBackToMenu();
+      } else {
+        stderr.writeln('Senha incorreta! Voltando ao Menu Inicial');
+        Future.delayed(Duration(seconds: 3));
+        startMenu();
+      }
     } else {
       stderr.writeln('Valor inválido! Tente novamente');
       _inputApplyForLoan();
@@ -74,13 +83,13 @@ class CurrentAccountMenuInput extends IAccountMenuInput {
     if (account.cardType == CardType.DebitAndCreditCard) {
       _payWithDebitAndCreditCard();
     } else {
-      stderr.writeln('Desculpe, essa conta tem apenas cartão de débito!');
+      stderr.writeln('Desculpe, essa conta tem apenas Cartão de Débito!');
       startMenu();
     }
   }
 
   void _payWithDebitAndCreditCard() {
-    stdout.writeln('Digite o valor que deseja pagar com o cartão de crédito:');
+    stdout.writeln('Digite o valor que deseja pagar com o Cartão de Crédito:');
     final valueString = stdin.readLineSync();
     final value = double.tryParse(valueString!);
 
@@ -90,21 +99,23 @@ class CurrentAccountMenuInput extends IAccountMenuInput {
     } else if (!cardValidations.acceptBuyWithCard(value!, account.card.limit)) {
       stderr.writeln('Operação cancelada! Saldo inválido para essa operação');
       stdout.writeln(
-          'Limite atual do cartão de crédito: R\$${account.card.limit}');
-      stdout.writeln('Fatura cartão de crédito: R\$${account.card.amoutSpent}');
+          'Limite atual do Cartão de Crédito: R\$${account.card.limit}');
+      stdout.writeln(
+          'Fatura do Cartão de Crédito: R\$${account.card.amoutSpent}');
       _payWithDebitAndCreditCard();
     } else {
       if (super.requiredPassword()) {
         account.card.buyWithCredit(value);
         stdout.writeln(
-            'Operação efetuada com sucesso!. Você pagou R\$$value com cartão de crédito');
+            'Operação efetuada com sucesso!. Você pagou R\$$value com Cartão de Crédito');
         stdout.writeln(
-            'Limite atual do cartão de crédito: R\$${account.card.limit}');
+            'Limite atual do Cartão de Crédito: R\$${account.card.limit}');
         stdout
-            .writeln('Fatura cartão de crédito: R\$${account.card.amoutSpent}');
+            .writeln('Fatura Cartão de Crédito: R\$${account.card.amoutSpent}');
         super.comeBackToMenu();
       } else {
         stderr.writeln('Senha incorreta! Voltando ao Menu Inicial');
+        Future.delayed(Duration(seconds: 3));
         startMenu();
       }
     }

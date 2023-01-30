@@ -18,7 +18,7 @@ class CurrentAccountInput {
   CurrentAccountInput({required this.user});
 
   void createCurrentAccount() {
-    stdout.writeln('\n--CONTA CORRENTE--');
+    InputMessages.currentAccountTitleMessage();
     _bankInput();
     final account = CurrentAccount(
       user: user,
@@ -31,13 +31,15 @@ class CurrentAccountInput {
   }
 
   void _bankInput() {
-    stdout.writeln('Digite os três digitos do banco de sua escolha:');
+    stdout.writeln('Digite os três digitos de um banco de sua escolha:');
     final bank = stdin.readLineSync();
     if (accountValidations.validateBank(bank)) {
       currentAccountData['bank'] = bank;
-      user.monthlyIncome != null ? _chooseCard() : _createDebitCard();
+      user.monthlyIncome != null
+          ? _chooseCard()
+          : currentAccountData['card'] = _createDebitCard();
     } else {
-      stdout.writeln('Banco inválido. Tente novamente');
+      stderr.writeln('Banco inválido. Tente novamente');
       _bankInput();
     }
   }
@@ -52,7 +54,7 @@ class CurrentAccountInput {
     } else if (choice == '2') {
       currentAccountData['card'] = _createDebitAndCreditCard();
     } else {
-      stdout.writeln('Opção inválida! Tente novamente.');
+      stderr.writeln('Opção inválida! Tente novamente.');
       _chooseCard();
     }
   }
@@ -61,7 +63,7 @@ class CurrentAccountInput {
     currentAccountData['cardType'] = CardType.DebitCard;
     user.monthlyIncome ??
         stdout.writeln(
-            '\n**Você só tem direito a cartão de débito porque não forneceu sua renda mensal**');
+            '**Você só tem direito ao Cartão de Débito porque não forneceu uma renda mensal**');
     return DebitCardInput(user: user).createDebitCard();
   }
 

@@ -36,17 +36,17 @@ void main() {
     });
 
     test('should return true if withdraw value does not exceed balance', () {
-      final isValid = accountValidations.validateWithdraw('1800', 2000);
+      final isValid = accountValidations.validateWithdraw('1800');
       expect(isValid, equals(true));
     });
 
     test('should return false if withdraw value exceed balance', () {
-      final isValid = accountValidations.validateWithdraw('1800.50', 1000);
+      final isValid = accountValidations.validateWithdraw('1800.50');
       expect(isValid, equals(false));
     });
 
     test('should return false if withdraw value contains letters', () {
-      final isValid = accountValidations.validateWithdraw('R\$1800', 2000);
+      final isValid = accountValidations.validateWithdraw('R\$1800');
       expect(isValid, equals(false));
     });
   });

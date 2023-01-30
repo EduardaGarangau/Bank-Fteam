@@ -1,33 +1,36 @@
 import 'dart:io';
 import 'package:bank_challenge/inputs/input_messages.dart';
-import 'package:bank_challenge/inputs/menus_input/iaccount_menu.dart';
+import 'package:bank_challenge/inputs/menus_input/account_menu_input.dart';
 
-class SavingsAccountMenuInput extends IAccountMenuInput {
+class SavingsAccountMenuInput extends AccountMenuInput {
   SavingsAccountMenuInput({required super.account});
 
   @override
   void startMenu() {
     InputMessages.savingsAccountMenuTitle();
     stdout.writeln('Escolha uma opção do menu:');
-    stdout.writeln('1 - Sacar');
-    stdout.writeln('2 - Depositar');
-    stdout.writeln('3 - Simular Rendimento de Poupança');
-    stdout.writeln('4 - Pagar com cartão de débito');
-    stdout.writeln('5 - Exibir Dados Pessoais');
-    stdout.writeln('6 - Exibir dados da Conta e Cartão');
+    stdout.writeln('1 - Verificar saldo atual');
+    stdout.writeln('2 - Sacar');
+    stdout.writeln('3 - Depositar');
+    stdout.writeln('4 - Simular Rendimento de Poupança');
+    stdout.writeln('5 - Pagar com Cartão de Débito');
+    stdout.writeln('6 - Exibir Dados Pessoais');
+    stdout.writeln('7 - Exibir dados da Conta e Cartão');
     final option = stdin.readLineSync();
 
     if (option == '1') {
-      super.inputWithdraw();
+      super.verifyAccountBalance();
     } else if (option == '2') {
-      super.inputDeposit();
+      super.inputWithdraw();
     } else if (option == '3') {
-      _inputRenderDays();
+      super.inputDeposit();
     } else if (option == '4') {
-      super.payWithDebitCard();
+      _inputRenderDays();
     } else if (option == '5') {
-      super.showUserDetails();
+      super.payWithDebitCard();
     } else if (option == '6') {
+      super.showUserDetails();
+    } else if (option == '7') {
       super.showAccountDetails();
     } else {
       stderr.writeln('Opção inválida! Tente Novamente');

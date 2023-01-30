@@ -13,11 +13,11 @@ class DebitCard extends Card {
   }
 
   @override
-  void buyWithCredit(double value) {}
-
-  @override
   double buyWithDebit(double value, double balance) {
     balance -= value;
     return balance;
   }
+
+  @override
+  void buyWithCredit(double value) {}
 }

@@ -140,19 +140,19 @@ void main() {
     test(
         'should return true if buy value does not exceed card limit of account balance',
         () {
-      final isValid = cardValidations.validateBuyWithCard('500', 5000);
+      final isValid = cardValidations.validateBuyWithCard('500');
       expect(isValid, equals(true));
     });
 
     test(
         'should return false if buy value exceed card limit of account balance',
         () {
-      final isValid = cardValidations.validateBuyWithCard('2000.50', 2000);
+      final isValid = cardValidations.validateBuyWithCard('2000.50');
       expect(isValid, equals(false));
     });
 
     test('should return false if buy value contains letters', () {
-      final isValid = cardValidations.validateBuyWithCard('R\$2000.50', 3000);
+      final isValid = cardValidations.validateBuyWithCard('R\$2000.50');
       expect(isValid, equals(false));
     });
   });

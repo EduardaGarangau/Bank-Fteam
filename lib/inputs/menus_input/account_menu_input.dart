@@ -1,16 +1,14 @@
 import 'dart:io';
-
 import 'package:bank_challenge/models/accounts/account_model.dart';
-
 import '../../validations/account_validations.dart';
 import '../../validations/card_validations.dart';
 
-abstract class IAccountMenuInput {
+abstract class AccountMenuInput {
+  final Account account;
   final accountValidations = AccountValidations();
   final cardValidations = CardValidations();
-  final Account account;
 
-  IAccountMenuInput({required this.account});
+  AccountMenuInput({required this.account});
 
   void startMenu();
 
@@ -34,6 +32,7 @@ abstract class IAccountMenuInput {
         comeBackToMenu();
       } else {
         stderr.writeln('Senha incorreta! Voltando ao Menu Inicial');
+        Future.delayed(Duration(seconds: 3));
         startMenu();
       }
     }
@@ -60,13 +59,14 @@ abstract class IAccountMenuInput {
         comeBackToMenu();
       } else {
         stderr.writeln('Senha incorreta! Voltando ao Menu Inicial');
+        Future.delayed(Duration(seconds: 3));
         startMenu();
       }
     }
   }
 
   void payWithDebitCard() {
-    stdout.writeln('Digite o valor que deseja pagar com o cartão de débito:');
+    stdout.writeln('Digite o valor que deseja pagar com o Cartão de Débito:');
     final valueString = stdin.readLineSync();
     final value = double.tryParse(valueString!);
 
@@ -86,6 +86,7 @@ abstract class IAccountMenuInput {
         comeBackToMenu();
       } else {
         stderr.writeln('Senha incorreta! Voltando ao Menu Inicial');
+        Future.delayed(Duration(seconds: 3));
         startMenu();
       }
     }
@@ -105,6 +106,16 @@ abstract class IAccountMenuInput {
     if (requiredPassword()) {
       print(account.toString());
       print(account.card.toString());
+      comeBackToMenu();
+    } else {
+      stderr.writeln('Senha incorreta! Voltando ao Menu Inicial');
+      startMenu();
+    }
+  }
+
+  void verifyAccountBalance() {
+    if (requiredPassword()) {
+      print('Seu saldo atual é: ${account.balance}');
       comeBackToMenu();
     } else {
       stderr.writeln('Senha incorreta! Voltando ao Menu Inicial');

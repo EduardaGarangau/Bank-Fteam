@@ -15,7 +15,7 @@ class SavingsAccountInput {
   SavingsAccountInput({required this.user});
 
   void createSavingsAccount() {
-    stdout.writeln('\n--CONTA POUPANÇA--');
+    InputMessages.savingsAccountTitleMessage();
     _bankInput();
     final account = SavingsAccount(
       user: user,
@@ -27,19 +27,19 @@ class SavingsAccountInput {
   }
 
   void _bankInput() {
-    stdout.writeln('Digite os três digitos do banco de sua escolha:');
+    stdout.writeln('Digite os três digitos de um banco de sua escolha:');
     final bank = stdin.readLineSync();
     if (accountValidations.validateBank(bank)) {
       savingsAccountData['bank'] = bank;
       savingsAccountData['card'] = _createDebitCard();
     } else {
-      stdout.writeln('Banco inválido. Tente novamente');
+      stderr.writeln('Banco inválido. Tente novamente');
       _bankInput();
     }
   }
 
   DebitCard _createDebitCard() {
-    stdout.writeln('\n**Conta Poupança só tem direito a cartão de débito**');
+    stdout.writeln('\n**Conta Poupança só tem direito ao Cartão de Débito**');
     return DebitCardInput(user: user).createDebitCard();
   }
 }

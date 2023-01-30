@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bank_challenge/inputs/account_inputs/choose_account_input.dart';
 import 'package:bank_challenge/inputs/input_messages.dart';
 import 'package:bank_challenge/models/address_model.dart';
 import 'package:bank_challenge/models/user_model.dart';
@@ -8,7 +9,8 @@ class UserInput {
   final _userValidations = UserValidations();
   Map<String, dynamic> _userData = {};
 
-  User createUser() {
+  void createUser() {
+    InputMessages.createUserMessage();
     stdout.writeln('--DIGITE SEUS DADOS PESSOAIS--');
     _inputName();
     final user = User(
@@ -29,7 +31,7 @@ class UserInput {
       monthlyIncome: _userData['montlyIncome'],
     );
     InputMessages.userCreatedMessage();
-    return user;
+    ChooseAccountInput(user: user).chooseInput();
   }
 
   void _inputName() {
@@ -81,7 +83,7 @@ class UserInput {
   }
 
   void _inputPassword() {
-    stdout.writeln('Digite sua senha:');
+    stdout.writeln('Escolha uma senha de apenas 8 dígitos:');
     final password = stdin.readLineSync();
     if (_userValidations.validatePassword(password)) {
       _userData['password'] = password;

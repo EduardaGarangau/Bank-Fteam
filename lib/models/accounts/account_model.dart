@@ -4,8 +4,8 @@ import '../user_model.dart';
 
 abstract class Account {
   final User user;
-  final String bank;
   final Card card;
+  final String bank;
   late String agency;
   late String number;
   double balance;
