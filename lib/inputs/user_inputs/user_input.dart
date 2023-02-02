@@ -1,194 +1,198 @@
 import 'dart:io';
-import 'package:bank_challenge/inputs/account_inputs/choose_account_input.dart';
+
 import 'package:bank_challenge/inputs/input_messages.dart';
 import 'package:bank_challenge/models/address_model.dart';
 import 'package:bank_challenge/models/user_model.dart';
-import 'package:bank_challenge/validations/user_validations.dart';
 
 class UserInput {
-  final _userValidations = UserValidations();
-  Map<String, dynamic> _userData = {};
+  final user = User(
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    cpf: '',
+    montlyIncome: '',
+    address: Address(
+      street: '',
+      number: '',
+      district: '',
+      city: '',
+      state: '',
+      cep: '',
+      complement: '',
+    ),
+  );
 
   void createUser() {
     InputMessages.createUserMessage();
-    stdout.writeln('--DIGITE SEUS DADOS PESSOAIS--');
-    _inputName();
-    final user = User(
-      name: _userData['name'],
-      email: _userData['email'],
-      phone: _userData['phone'],
-      cpf: _userData['cpf'],
-      address: Address(
-        street: _userData['street'],
-        number: _userData['number'],
-        district: _userData['district'],
-        city: _userData['city'],
-        state: _userData['state'],
-        cep: _userData['cep'],
-        complement: _userData['complement'],
-      ),
-      password: _userData['password'],
-      monthlyIncome: _userData['montlyIncome'],
-    );
-    InputMessages.userCreatedMessage();
-    ChooseAccountInput(user: user).chooseInput();
+    inputName();
+    stdout.write(user.toString());
   }
 
-  void _inputName() {
+  void inputName() {
     stdout.writeln('Digite seu nome:');
-    final name = stdin.readLineSync();
-    if (_userValidations.validateName(name)) {
-      _userData['name'] = name;
-      _inputEmail();
+    final input = stdin.readLineSync();
+    user.setName(input!);
+    final isValid = user.name.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputName();
     } else {
-      stderr.writeln('Nome inválido! Tente novamente');
-      _inputName();
+      inputEmail();
     }
   }
 
-  void _inputEmail() {
-    stdout.writeln('Digite seu Email:');
-    final email = stdin.readLineSync();
-    if (_userValidations.validateEmail(email)) {
-      _userData['email'] = email;
-      _inputPhone();
+  void inputEmail() {
+    stdout.writeln('Digite seu email:');
+    final input = stdin.readLineSync();
+    user.setEmail(input!);
+    final isValid = user.email.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputEmail();
     } else {
-      stderr.writeln('Email inválido! Tente novamente');
-      _inputEmail();
+      inputPassword();
     }
   }
 
-  void _inputPhone() {
+  void inputPassword() {
+    stdout.writeln('Digite sua senha de 8 dígitos:');
+    final input = stdin.readLineSync();
+    user.setPassword(input!);
+    final isValid = user.password.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputPassword();
+    } else {
+      inputPhone();
+    }
+  }
+
+  void inputPhone() {
     stdout.writeln('Digite seu telefone:');
-    final phone = stdin.readLineSync();
-    if (_userValidations.validatePhone(phone)) {
-      _userData['phone'] = phone;
-      _inputCpf();
+    final input = stdin.readLineSync();
+    user.setPhone(input!);
+    final isValid = user.phone.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputPhone();
     } else {
-      stderr.writeln('Telefone inválido! Tente novamente');
-      _inputPhone();
+      inputCpf();
     }
   }
 
-  void _inputCpf() {
+  void inputCpf() {
     stdout.writeln('Digite seu CPF:');
-    final cpf = stdin.readLineSync();
-    if (_userValidations.validateCpf(cpf)) {
-      _userData['cpf'] = cpf;
-      _inputPassword();
+    final input = stdin.readLineSync();
+    user.setCpf(input!);
+    final isValid = user.cpf.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputCpf();
     } else {
-      stderr.writeln('CPF inválido! Tente novamente');
-      _inputCpf();
+      inputMontlyIncome();
     }
   }
 
-  void _inputPassword() {
-    stdout.writeln('Escolha uma senha de apenas 8 dígitos:');
-    final password = stdin.readLineSync();
-    if (_userValidations.validatePassword(password)) {
-      _userData['password'] = password;
-      _inputCep();
+  void inputMontlyIncome() {
+    stdout.writeln('Digite sua renda mensal (opicional):');
+    final input = stdin.readLineSync();
+    user.setMontlyIncome(input!);
+    final isValid = user.montlyIncome.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputMontlyIncome();
     } else {
-      stderr.writeln('Senha inválida! Tente novamente');
-      _inputPassword();
+      inputStreet();
     }
   }
 
-  void _inputCep() {
-    stdout.writeln('--DIGITE SEU ENDEREÇO--');
-    stdout.writeln('Digite seu CEP:');
-    final cep = stdin.readLineSync();
-    if (cep!.isNotEmpty) {
-      _userData['cep'] = cep;
-      _inputStreet();
-    } else {
-      stderr.writeln('CEP inválido! Tente novamente');
-      _inputCep();
-    }
-  }
-
-  void _inputStreet() {
+  void inputStreet() {
     stdout.writeln('Digite sua rua:');
-    final street = stdin.readLineSync();
-    if (street!.isNotEmpty) {
-      _userData['street'] = street;
-      _inputDistrict();
+    final input = stdin.readLineSync();
+    user.address.setStreet(input!);
+    final isValid = user.address.street.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputStreet();
     } else {
-      stderr.writeln('Rua inválida! Tente novamente');
-      _inputStreet();
+      inputNumber();
     }
   }
 
-  void _inputDistrict() {
-    stdout.writeln('Digite seu bairro:');
-    final district = stdin.readLineSync();
-    if (district!.isNotEmpty) {
-      _userData['district'] = district;
-      _inputCity();
-    } else {
-      stderr.writeln('Bairro inválido! Tente novamente');
-      _inputDistrict();
-    }
-  }
-
-  void _inputCity() {
-    stdout.writeln('Digite sua cidade:');
-    final city = stdin.readLineSync();
-    if (city!.isNotEmpty) {
-      _userData['city'] = city;
-      _inputState();
-    } else {
-      stderr.writeln('Cidade inválida! Tente novamente');
-      _inputCity();
-    }
-  }
-
-  void _inputState() {
-    stdout.writeln('Digite seu estado:');
-    final state = stdin.readLineSync();
-    if (state!.isNotEmpty) {
-      _userData['state'] = state;
-      _inputNumber();
-    } else {
-      stderr.writeln('Estado inválido! Tente novamente');
-      _inputState();
-    }
-  }
-
-  void _inputNumber() {
+  void inputNumber() {
     stdout.writeln('Digite o número da sua residência:');
-    final number = stdin.readLineSync();
-    if (number!.isNotEmpty) {
-      _userData['number'] = number;
-      _inputComplement();
+    final input = stdin.readLineSync();
+    user.address.setNumber(input!);
+    final isValid = user.address.number.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputNumber();
     } else {
-      stderr.writeln('Número inválido! Tente novamente');
-      _inputNumber();
+      inputComplement();
     }
   }
 
-  void _inputComplement() {
+  void inputComplement() {
     stdout.writeln('Digite o complemento (opcional):');
-    final complement = stdin.readLineSync();
-    if (complement!.isNotEmpty) {
-      _userData['complement'] = complement;
-      _inputMontlyIncome();
-    } else if (complement.isEmpty) {
-      _userData['complement'] = null;
-      _inputMontlyIncome();
+    final input = stdin.readLineSync();
+    user.address.setComplement(input!);
+    final isValid = user.address.complement.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputComplement();
+    } else {
+      inputDistrict();
     }
   }
 
-  void _inputMontlyIncome() {
-    stdout.writeln('Digite sua renda mensal (opcional):');
-    final montlyIncome = stdin.readLineSync();
-    if (montlyIncome!.isEmpty) {
-      _userData['montlyIncome'] = null;
-    } else if (_userValidations.validateMontlyIncome(montlyIncome)) {
-      _userData['montlyIncome'] = double.tryParse(montlyIncome);
+  void inputDistrict() {
+    stdout.writeln('Digite seu bairro:');
+    final input = stdin.readLineSync();
+    user.address.setDistrict(input!);
+    final isValid = user.address.district.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputDistrict();
     } else {
-      stderr.writeln('Número inválido! Tente novamente');
-      _inputMontlyIncome();
+      inputCity();
+    }
+  }
+
+  void inputCity() {
+    stdout.writeln('Digite sua cidade:');
+    final input = stdin.readLineSync();
+    user.address.setCity(input!);
+    final isValid = user.address.city.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputCity();
+    } else {
+      inputState();
+    }
+  }
+
+  void inputState() {
+    stdout.writeln('Digite a sigla do seu estado:');
+    final input = stdin.readLineSync();
+    user.address.setState(input!);
+    final isValid = user.address.state.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputState();
+    } else {
+      inputCep();
+    }
+  }
+
+  void inputCep() {
+    stdout.writeln('Digite seu CEP:');
+    final input = stdin.readLineSync();
+    user.address.setCep(input!);
+    final isValid = user.address.cep.validate();
+    if (isValid != null) {
+      stderr.writeln(isValid);
+      inputCep();
     }
   }
 }
