@@ -1,15 +1,12 @@
 import 'package:bank_challenge/models/cards/card_model.dart';
 
 class DebitAndCreditCard extends Card {
-  final double userMontlyIncome;
-
   DebitAndCreditCard({
     required super.user,
     required super.flag,
     required super.expirationDate,
-    required this.userMontlyIncome,
   }) {
-    super.limit = _setLimitByMontlyIncome(userMontlyIncome);
+    super.limit = _setLimitByMontlyIncome(user.montlyIncome.value);
   }
 
   @override

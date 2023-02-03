@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bank_challenge/inputs/input_messages.dart';
 import 'package:bank_challenge/models/address_model.dart';
 import 'package:bank_challenge/models/user_model.dart';
@@ -26,6 +25,7 @@ class UserInput {
   void createUser() {
     InputMessages.createUserMessage();
     inputName();
+    InputMessages.userCreatedMessage();
     stdout.write(user.toString());
   }
 

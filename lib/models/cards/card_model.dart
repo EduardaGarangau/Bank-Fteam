@@ -1,4 +1,7 @@
 import 'dart:math';
+import 'package:bank_challenge/value_objects/card_vo/expiration_date_vo.dart';
+import 'package:bank_challenge/value_objects/card_vo/flag_vo.dart';
+
 import '../user_model.dart';
 
 enum CardType {
@@ -8,22 +11,27 @@ enum CardType {
 
 abstract class Card {
   final User user;
-  final String flag;
-  final String expirationDate;
-  late String number;
-  late String cvv;
+  FlagVO _flag;
+  ExpirationDateVO _expirationDate;
+  late String number = _generateNumber(16);
+  late String cvv = _generateNumber(3);
   late double limit;
   double amoutSpent;
 
+  FlagVO get flag => _flag;
+  void setFlag(String value) => _flag = FlagVO(value);
+
+  ExpirationDateVO get expirationDate => _expirationDate;
+  void setExpirationDate(String value) =>
+      _expirationDate = ExpirationDateVO(value);
+
   Card({
-    required this.flag,
     required this.user,
-    required this.expirationDate,
+    required expirationDate,
+    required flag,
     this.amoutSpent = 0.0,
-  }) {
-    number = _generateNumber(16);
-    cvv = _generateNumber(3);
-  }
+  })  : _flag = FlagVO(flag),
+        _expirationDate = ExpirationDateVO(expirationDate);
 
   double buyWithDebit(double value, double balance);
 

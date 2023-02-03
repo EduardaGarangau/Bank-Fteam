@@ -1,23 +1,16 @@
 import 'package:bank_challenge/models/accounts/account_model.dart';
+import 'package:bank_challenge/models/cards/card_model.dart';
+import 'package:bank_challenge/models/cards/debit_card_model.dart';
 
 class CurrentAccount extends Account {
+  late Card card = super.user.montlyIncome.value ?? createDebitCard();
+
   CurrentAccount({
     required super.user,
     required super.bank,
-    required super.card,
-    required super.cardType,
   });
 
-  @override
-  void applyForLoan(double value) {
-    balance += value;
-  }
-
-  @override
-  void renderBalance(int days) {}
-
-  @override
-  String toString() {
-    return '| DADOS CONTA CORRENTE |\nNumero: ${super.number}\nAgencia: ${super.agency}\nBanco: ${super.bank}\nSaldo: ${super.balance}';
+  DebitCard createDebitCard() {
+    return DebitCard(user: super.user, flag: '', expirationDate: '');
   }
 }
