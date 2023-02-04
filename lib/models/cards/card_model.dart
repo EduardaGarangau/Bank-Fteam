@@ -1,43 +1,49 @@
 import 'dart:math';
-import 'package:bank_challenge/value_objects/card_vo/expiration_date_vo.dart';
-import 'package:bank_challenge/value_objects/card_vo/flag_vo.dart';
-
 import '../user_model.dart';
-
-enum CardType {
-  DebitCard,
-  DebitAndCreditCard,
-}
 
 abstract class Card {
   final User user;
-  FlagVO _flag;
-  ExpirationDateVO _expirationDate;
-  late String number = _generateNumber(16);
-  late String cvv = _generateNumber(3);
-  late double limit;
-  double amoutSpent;
-
-  FlagVO get flag => _flag;
-  void setFlag(String value) => _flag = FlagVO(value);
-
-  ExpirationDateVO get expirationDate => _expirationDate;
-  void setExpirationDate(String value) =>
-      _expirationDate = ExpirationDateVO(value);
+  final String flag;
+  final String expirationDate;
+  String number;
+  String cvv;
+  double limit;
+  double amountSpend;
 
   Card({
     required this.user,
-    required expirationDate,
-    required flag,
-    this.amoutSpent = 0.0,
-  })  : _flag = FlagVO(flag),
-        _expirationDate = ExpirationDateVO(expirationDate);
+    required this.flag,
+    required this.expirationDate,
+  })  : number = _generateNumber(16),
+        cvv = _generateNumber(3),
+        limit = 0.0,
+        amountSpend = 0.0;
 
-  double buyWithDebit(double value, double balance);
+  @override
+  String toString() {
+    return 'Nome: ${user.name}\nNúmero: $number\nCVV: $cvv\nBandeira: $flag\nData de Validade: $expirationDate';
+  }
 
-  void buyWithCredit(double value);
+  double? buyWithDebit(double value, double accountBalance) {
+    if (value > 0 && value <= accountBalance) {
+      accountBalance -= value;
+      return accountBalance;
+    } else {
+      return null;
+    }
+  }
 
-  String _generateNumber(int numberLength) {
+  String? buyWithCreditCard(double value) {
+    if (value <= limit) {
+      amountSpend += value;
+      limit -= value;
+      return null;
+    } else {
+      return 'O valor excedeu o limite do cartão de crédito de $limit';
+    }
+  }
+
+  static String _generateNumber(int numberLength) {
     String randomNumber = '';
     var randomNumbers = _generateRandomNumbers(numberLength);
 
@@ -47,7 +53,7 @@ abstract class Card {
     return randomNumber;
   }
 
-  List<int> _generateRandomNumbers(int numberLength) {
+  static List<int> _generateRandomNumbers(int numberLength) {
     var randomNumber = Random();
     return List<int>.generate(numberLength, (index) => randomNumber.nextInt(9));
   }

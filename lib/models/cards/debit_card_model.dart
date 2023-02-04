@@ -6,18 +6,4 @@ class DebitCard extends Card {
     required super.flag,
     required super.expirationDate,
   });
-
-  @override
-  String toString() {
-    return '| CARTÃO DE DÉBITO |\nNome: ${user.name}\nNumero: ${super.number}\nCVV: ${super.cvv}\nBandeira: $flag\nData de Valiade: $expirationDate';
-  }
-
-  @override
-  double buyWithDebit(double value, double balance) {
-    balance -= value;
-    return balance;
-  }
-
-  @override
-  void buyWithCredit(double value) {}
 }

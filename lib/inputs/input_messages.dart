@@ -64,4 +64,22 @@ class InputMessages {
     print('| MENU INICIAL - CONTA CORRENTE |');
     print(' -------------------------------');
   }
+
+  static void userDetailsTitle() {
+    print(' ---------------------');
+    print('| DETALHES DO USUÁRIO |');
+    print(' ---------------------');
+  }
+
+  static void accountDetailsTitle() {
+    print(' ---------------------');
+    print('| DETALHES DO USUÁRIO |');
+    print(' ---------------------');
+  }
+
+  static void cardDetailsTitle() {
+    print(' --------------------');
+    print('| DETALHES DO CARTÃO |');
+    print(' --------------------');
+  }
 }
