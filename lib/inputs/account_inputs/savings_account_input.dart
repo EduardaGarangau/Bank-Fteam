@@ -17,7 +17,7 @@ class SavingsAccountInput {
 
   SavingsAccountModel createSavingsAccount() {
     InputMessages.savingsAccountTitleMessage();
-    inputBank();
+    _inputBank();
     final account = SavingsAccountModel(
       user: user,
       bank: bank,
@@ -27,13 +27,13 @@ class SavingsAccountInput {
     return account;
   }
 
-  void inputBank() {
+  void _inputBank() {
     stdout.writeln('Digite os três dígitos de um banco de sua escolha:');
     final input = stdin.readLineSync();
     final isValid = BankValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputBank();
+      _inputBank();
     } else {
       bank = input!;
       card = DebitCardInput(user).createDebitCard();

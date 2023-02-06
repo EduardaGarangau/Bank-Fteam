@@ -19,7 +19,7 @@ class CurrentAccountInput {
 
   CurrentAccountModel createCurrentAccount() {
     InputMessages.currentAccountTitleMessage();
-    inputBank();
+    _inputBank();
     final account = CurrentAccountModel(
       user: user,
       bank: bank,
@@ -29,25 +29,25 @@ class CurrentAccountInput {
     return account;
   }
 
-  void inputBank() {
+  void _inputBank() {
     stdout.writeln('Digite os três dígitos de um banco de sua escolha:');
     final input = stdin.readLineSync();
     final isValid = BankValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputBank();
+      _inputBank();
     } else {
       bank = input!;
 
       if (user.montlyIncome == null) {
         card = DebitCardInput(user).createDebitCard();
       } else {
-        chooseCard();
+        _chooseCard();
       }
     }
   }
 
-  void chooseCard() {
+  void _chooseCard() {
     stdout.writeln('Escolha um cartão:');
     stdout.writeln('1 - Cartão de Débito');
     stdout.writeln('2 - Cartão de Débito e Crédito');
@@ -59,7 +59,7 @@ class CurrentAccountInput {
       card = DebitAndCreditCardInput(user).createDebitAndCreditCard();
     } else {
       stderr.writeln('Opção incorreta. Tente novamente!');
-      chooseCard();
+      _chooseCard();
     }
   }
 }
