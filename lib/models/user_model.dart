@@ -1,15 +1,15 @@
 import 'package:bank_challenge/models/address_model.dart';
 
-class User {
+class UserModel {
   final String name;
   final String email;
   final String password;
   final String phone;
   final String cpf;
   final double? montlyIncome;
-  final Address address;
+  final AddressModel address;
 
-  User({
+  UserModel({
     required this.name,
     required this.email,
     required this.password,

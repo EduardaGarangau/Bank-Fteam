@@ -7,16 +7,16 @@ import '../../validations/card_validations/expiration_date_validation.dart';
 import '../../validations/card_validations/flag_validation.dart';
 
 class DebitCardInput {
-  final User user;
+  final UserModel user;
   late String flag;
   late String expirationDate;
 
   DebitCardInput(this.user);
 
-  Card createDebitCard() {
+  CardModel createDebitCard() {
     InputMessages.createDebitCardMessage();
     inputFlag();
-    return DebitCard(
+    return DebitCardModel(
       user: user,
       flag: flag,
       expirationDate: expirationDate,

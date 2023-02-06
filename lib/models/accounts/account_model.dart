@@ -4,15 +4,15 @@ import 'package:bank_challenge/models/cards/card_model.dart';
 import '../cards/debit_card_model.dart';
 import '../user_model.dart';
 
-abstract class Account {
-  final User user;
+abstract class AccountModel {
+  final UserModel user;
   final String bank;
-  late Card card;
+  late CardModel card;
   double balance;
   String agency;
   String number;
 
-  Account({
+  AccountModel({
     required this.user,
     required this.bank,
   })  : balance = 0.0,
@@ -24,7 +24,7 @@ abstract class Account {
     return 'Numero da Conta: $number\nAgencia: $agency\nBanco: $bank\nSaldo: $balance';
   }
 
-  bool get cardIsDebit => card is DebitCard;
+  bool get cardIsDebit => card is DebitCardModel;
 
   bool get montlyIncomeIsNull => user.montlyIncome == null;
 

@@ -1,7 +1,7 @@
 import 'package:bank_challenge/models/cards/card_model.dart';
 
-class DebitAndCreditCard extends Card {
-  DebitAndCreditCard({
+class DebitAndCreditCardModel extends CardModel {
+  DebitAndCreditCardModel({
     required super.user,
     required super.flag,
     required super.expirationDate,

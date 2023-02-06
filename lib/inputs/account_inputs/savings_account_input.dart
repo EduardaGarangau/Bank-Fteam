@@ -9,20 +9,20 @@ import 'package:bank_challenge/models/user_model.dart';
 import '../../validations/account_validations/bank_validation.dart';
 
 class SavingsAccountInput {
-  final User user;
+  final UserModel user;
   late String bank;
-  late Card card;
+  late CardModel card;
 
   SavingsAccountInput(this.user);
 
   void createSavingsAccount() {
     InputMessages.savingsAccountTitleMessage();
     inputBank();
-    final account = SavingsAccount(
+    final account = SavingsAccountModel(
       user: user,
       bank: bank,
     );
-    account.card = card as DebitCard;
+    account.card = card as DebitCardModel;
     InputMessages.savingsAccountCreatedMessage();
     SavingsAccountMenuInput(account).startMenu();
   }

@@ -11,16 +11,16 @@ import '../card_inputs/debit_card_input.dart';
 import '../input_messages.dart';
 
 class CurrentAccountInput {
-  final User user;
+  final UserModel user;
   late String bank;
-  late Card card;
+  late CardModel card;
 
   CurrentAccountInput(this.user);
 
   void createCurrentAccount() {
     InputMessages.currentAccountTitleMessage();
     inputBank();
-    final account = CurrentAccount(
+    final account = CurrentAccountModel(
       user: user,
       bank: bank,
     );

@@ -7,7 +7,7 @@ import '../../models/user_model.dart';
 import 'current_accout_input.dart';
 
 class ChooseAccount {
-  void createAccount(User user) {
+  void createAccount(UserModel user) {
     InputMessages.createAccountMessage();
     stdout.writeln('1 - Conta Poupança');
     stdout.writeln('2 - Conta Corrente');

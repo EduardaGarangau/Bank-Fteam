@@ -9,7 +9,7 @@ import '../../validations/account_validations/value_methods_validation.dart';
 import '../../validations/card_validations/value_pay_validation.dart';
 
 abstract class MenuInput {
-  final Account account;
+  final AccountModel account;
 
   MenuInput(this.account);
 

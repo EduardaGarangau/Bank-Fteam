@@ -1,4 +1,4 @@
-class Address {
+class AddressModel {
   final String street;
   final String number;
   final String district;
@@ -7,7 +7,7 @@ class Address {
   final String cep;
   final String? complement;
 
-  Address({
+  AddressModel({
     required this.street,
     required this.number,
     required this.district,

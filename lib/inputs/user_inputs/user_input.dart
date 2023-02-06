@@ -35,14 +35,14 @@ class UserInput {
   void createUser() {
     InputMessages.createUserMessage();
     inputName();
-    final user = User(
+    final user = UserModel(
       name: name,
       email: email,
       password: password,
       phone: phone,
       cpf: cpf,
       montlyIncome: montlyIncome,
-      address: Address(
+      address: AddressModel(
         street: street,
         number: number,
         district: district,

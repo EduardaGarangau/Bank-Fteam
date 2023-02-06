@@ -1,8 +1,8 @@
 import 'dart:math';
 import '../user_model.dart';
 
-abstract class Card {
-  final User user;
+abstract class CardModel {
+  final UserModel user;
   final String flag;
   final String expirationDate;
   String number;
@@ -10,7 +10,7 @@ abstract class Card {
   double limit;
   double amountSpend;
 
-  Card({
+  CardModel({
     required this.user,
     required this.flag,
     required this.expirationDate,
