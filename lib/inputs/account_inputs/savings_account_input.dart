@@ -15,7 +15,7 @@ class SavingsAccountInput {
 
   SavingsAccountInput(this.user);
 
-  void createSavingsAccount() {
+  SavingsAccountModel createSavingsAccount() {
     InputMessages.savingsAccountTitleMessage();
     inputBank();
     final account = SavingsAccountModel(
@@ -24,7 +24,7 @@ class SavingsAccountInput {
     );
     account.card = card as DebitCardModel;
     InputMessages.savingsAccountCreatedMessage();
-    SavingsAccountMenuInput(account).startMenu();
+    return account;
   }
 
   void inputBank() {

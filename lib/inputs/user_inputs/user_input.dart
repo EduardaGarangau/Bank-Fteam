@@ -32,9 +32,21 @@ class UserInput {
   late String cep;
   String? complement;
 
-  void createUser() {
+  UserModel createUser() {
     InputMessages.createUserMessage();
-    inputName();
+    _inputName();
+    _inputEmail();
+    _inputPassword();
+    _inputPhone();
+    _inputCpf();
+    _inputMontlyIncome();
+    _inputStreet();
+    _inputNumber();
+    _inputComplement();
+    _inputDistrict();
+    _inputCity();
+    _inputState();
+    _inputCep();
     final user = UserModel(
       name: name,
       email: email,
@@ -53,174 +65,162 @@ class UserInput {
       ),
     );
     InputMessages.userCreatedMessage();
-    ChooseAccount().createAccount(user);
+    return user;
   }
 
-  void inputName() {
+  void _inputName() {
     stdout.writeln('Digite seu nome:');
     final input = stdin.readLineSync();
     final isValid = NameValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputName();
+      _inputName();
     } else {
       name = input!;
-      inputEmail();
     }
   }
 
-  void inputEmail() {
+  void _inputEmail() {
     stdout.writeln('Digite seu email:');
     final input = stdin.readLineSync();
     final isValid = EmailValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputEmail();
+      _inputEmail();
     } else {
       email = input!;
-      inputPassword();
     }
   }
 
-  void inputPassword() {
+  void _inputPassword() {
     stdout.writeln('Digite sua senha de 8 dígitos:');
     final input = stdin.readLineSync();
     final isValid = PasswordValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputPassword();
+      _inputPassword();
     } else {
       password = input!;
-      inputPhone();
     }
   }
 
-  void inputPhone() {
+  void _inputPhone() {
     stdout.writeln('Digite seu telefone:');
     final input = stdin.readLineSync();
     final isValid = PhoneValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputPhone();
+      _inputPhone();
     } else {
       phone = input!;
-      inputCpf();
     }
   }
 
-  void inputCpf() {
+  void _inputCpf() {
     stdout.writeln('Digite seu CPF:');
     final input = stdin.readLineSync();
     final isValid = CpfValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputCpf();
+      _inputCpf();
     } else {
       cpf = input!;
-      inputMontlyIncome();
     }
   }
 
-  void inputMontlyIncome() {
+  void _inputMontlyIncome() {
     stdout.writeln('Digite sua renda mensal (opicional):');
     final input = stdin.readLineSync();
     final isValid = MontlyIncomeValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputMontlyIncome();
+      _inputMontlyIncome();
     } else {
       input!.isEmpty
           ? montlyIncome = null
           : montlyIncome = double.tryParse(input);
-      inputStreet();
     }
   }
 
-  void inputStreet() {
+  void _inputStreet() {
     stdout.writeln('Digite sua rua:');
     final input = stdin.readLineSync();
     final isValid = StreetValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputStreet();
+      _inputStreet();
     } else {
       street = input!;
-      inputNumber();
     }
   }
 
-  void inputNumber() {
+  void _inputNumber() {
     stdout.writeln('Digite o número da sua residência:');
     final input = stdin.readLineSync();
     final isValid = NumberValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputNumber();
+      _inputNumber();
     } else {
       number = input!;
-      inputComplement();
     }
   }
 
-  void inputComplement() {
+  void _inputComplement() {
     stdout.writeln('Digite o complemento (opcional):');
     final input = stdin.readLineSync();
     final isValid = ComplementValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputComplement();
+      _inputComplement();
     } else {
       input!.isEmpty ? complement = null : complement = input;
-      inputDistrict();
     }
   }
 
-  void inputDistrict() {
+  void _inputDistrict() {
     stdout.writeln('Digite seu bairro:');
     final input = stdin.readLineSync();
     final isValid = DistrictValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputDistrict();
+      _inputDistrict();
     } else {
       district = input!;
-      inputCity();
     }
   }
 
-  void inputCity() {
+  void _inputCity() {
     stdout.writeln('Digite sua cidade:');
     final input = stdin.readLineSync();
     final isValid = CityValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputCity();
+      _inputCity();
     } else {
       city = input!;
-      inputState();
     }
   }
 
-  void inputState() {
+  void _inputState() {
     stdout.writeln('Digite a sigla do seu estado:');
     final input = stdin.readLineSync();
     final isValid = StateValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputState();
+      _inputState();
     } else {
       state = input!;
-      inputCep();
     }
   }
 
-  void inputCep() {
+  void _inputCep() {
     stdout.writeln('Digite seu CEP:');
     final input = stdin.readLineSync();
     final isValid = CepValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputCep();
+      _inputCep();
     } else {
       cep = input!;
     }

@@ -17,7 +17,7 @@ class CurrentAccountInput {
 
   CurrentAccountInput(this.user);
 
-  void createCurrentAccount() {
+  CurrentAccountModel createCurrentAccount() {
     InputMessages.currentAccountTitleMessage();
     inputBank();
     final account = CurrentAccountModel(
@@ -26,7 +26,7 @@ class CurrentAccountInput {
     );
     account.card = card;
     InputMessages.currentAccountCreatedMessage();
-    CurrentAccountMenuInput(account).startMenu();
+    return account;
   }
 
   void inputBank() {
@@ -38,9 +38,12 @@ class CurrentAccountInput {
       inputBank();
     } else {
       bank = input!;
-      user.montlyIncome == null
-          ? card = DebitCardInput(user).createDebitCard()
-          : chooseCard();
+
+      if (user.montlyIncome == null) {
+        card = DebitCardInput(user).createDebitCard();
+      } else {
+        chooseCard();
+      }
     }
   }
 

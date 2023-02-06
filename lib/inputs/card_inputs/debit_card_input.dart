@@ -15,7 +15,8 @@ class DebitCardInput {
 
   CardModel createDebitCard() {
     InputMessages.createDebitCardMessage();
-    inputFlag();
+    _inputFlag();
+    _inputExpirationDate();
     return DebitCardModel(
       user: user,
       flag: flag,
@@ -23,27 +24,26 @@ class DebitCardInput {
     );
   }
 
-  void inputFlag() {
+  void _inputFlag() {
     stdout.writeln('Digite a bandeira do seu novo cartão:');
     final input = stdin.readLineSync();
     final isValid = FlagValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputFlag();
+      _inputFlag();
     } else {
       flag = input!;
-      inputExpirationDate();
     }
   }
 
-  void inputExpirationDate() {
+  void _inputExpirationDate() {
     stdout
         .writeln('Digite a data de validade do seu cartão, sendo de 10 anos:');
     final input = stdin.readLineSync();
     final isValid = ExpirationDateValidation(input).validate();
     if (isValid != null) {
       stderr.writeln(isValid);
-      inputExpirationDate();
+      _inputExpirationDate();
     } else {
       expirationDate = input!;
     }

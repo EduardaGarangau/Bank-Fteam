@@ -23,28 +23,28 @@ class CurrentAccountMenuInput extends MenuInput {
 
     switch (input) {
       case '1':
-        super.inputDeposit();
+        inputDeposit();
         break;
       case '2':
-        super.inputWithdraw();
+        inputWithdraw();
         break;
       case '3':
         acceptApplyForLoan();
         break;
       case '4':
-        super.inputPayWithDebitCard();
+        inputPayWithDebitCard();
         break;
       case '5':
         acceptPayWithCreditCard();
         break;
       case '6':
-        super.showUserDetails();
+        showUserDetails();
         break;
       case '7':
-        super.showAccountDetails();
+        showAccountDetails();
         break;
       case '8':
-        super.showCardDetails();
+        showCardDetails();
         break;
       default:
         startMenu();
@@ -66,7 +66,7 @@ class CurrentAccountMenuInput extends MenuInput {
       stdout.writeln('Cartão de Crédito indisponível.');
       comeBackToMenu();
     } else {
-      super.inputPayWithCreditCard();
+      inputPayWithCreditCard();
     }
   }
 }
