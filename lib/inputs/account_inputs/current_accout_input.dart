@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:bank_challenge/inputs/card_inputs/debit_and_credit_card_input.dart';
-import 'package:bank_challenge/inputs/menu_inputs/current_account_menu_input.dart';
 import 'package:bank_challenge/models/accounts/current_acount_model.dart';
 import 'package:bank_challenge/validations/account_validations/bank_validation.dart';
-
 import '../../models/cards/card_model.dart';
 import '../../models/user_model.dart';
 import '../card_inputs/debit_card_input.dart';
@@ -23,8 +20,8 @@ class CurrentAccountInput {
     final account = CurrentAccountModel(
       user: user,
       bank: bank,
+      card: card,
     );
-    account.card = card;
     InputMessages.currentAccountCreatedMessage();
     return account;
   }

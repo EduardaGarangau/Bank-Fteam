@@ -7,7 +7,7 @@ import '../user_model.dart';
 abstract class AccountModel {
   final UserModel user;
   final String bank;
-  late CardModel card;
+  final CardModel card;
   double balance;
   String agency;
   String number;
@@ -15,6 +15,7 @@ abstract class AccountModel {
   AccountModel({
     required this.user,
     required this.bank,
+    required this.card,
   })  : balance = 0.0,
         agency = _generateNumber(5),
         number = _generateNumber(5);
@@ -52,6 +53,7 @@ abstract class AccountModel {
 
     if (value >= twentyPerCent && value <= seventyPerCent) {
       balance += value;
+      card.amountSpend += value;
       return null;
     } else {
       return 'Valor inválido. Você só pode fazer um empréstimo de $twentyPerCent a $seventyPerCent!';

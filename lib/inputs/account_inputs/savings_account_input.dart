@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:bank_challenge/inputs/card_inputs/debit_card_input.dart';
 import 'package:bank_challenge/inputs/input_messages.dart';
-import 'package:bank_challenge/inputs/menu_inputs/savings_account_menu_input.dart';
 import 'package:bank_challenge/models/accounts/savings_acount_model.dart';
 import 'package:bank_challenge/models/cards/card_model.dart';
 import 'package:bank_challenge/models/cards/debit_card_model.dart';
@@ -21,8 +20,8 @@ class SavingsAccountInput {
     final account = SavingsAccountModel(
       user: user,
       bank: bank,
+      card: card,
     );
-    account.card = card as DebitCardModel;
     InputMessages.savingsAccountCreatedMessage();
     return account;
   }

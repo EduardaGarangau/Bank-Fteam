@@ -15,7 +15,6 @@ import '../../validations/address_validations/state_validation.dart';
 import '../../validations/address_validations/street_validation.dart';
 import '../../validations/user_validations/montly_income_validation.dart';
 import '../../validations/user_validations/phone_validation.dart';
-import '../account_inputs/choose_account.dart';
 
 class UserInput {
   late String name;

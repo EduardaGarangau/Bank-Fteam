@@ -4,5 +4,6 @@ class SavingsAccountModel extends AccountModel {
   SavingsAccountModel({
     required super.user,
     required super.bank,
+    required super.card,
   });
 }

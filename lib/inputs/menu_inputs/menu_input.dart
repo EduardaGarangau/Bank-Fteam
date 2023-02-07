@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:bank_challenge/inputs/input_messages.dart';
 import 'package:bank_challenge/models/accounts/account_model.dart';
-import 'package:bank_challenge/models/cards/debit_and_credit_card_model.dart';
 import '../../validations/account_validations/days_validation.dart';
 import '../../validations/account_validations/value_methods_validation.dart';
 import '../../validations/card_validations/value_pay_validation.dart';

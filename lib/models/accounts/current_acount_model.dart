@@ -4,5 +4,6 @@ class CurrentAccountModel extends AccountModel {
   CurrentAccountModel({
     required super.user,
     required super.bank,
+    required super.card,
   });
 }
